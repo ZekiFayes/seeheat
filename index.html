@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Physics-Informed Modeling for Wood Thermal Analysis and Prediction.">
+  <meta name="keywords" content="Physics-Informed Neural Networks, RGB-Thermal Analysis">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Physics-Informed Modeling for Wood Thermal Analysis and Prediction</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Physics-Informed Modeling for Wood Thermal Analysis and Prediction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span>Jingren Xie</span><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <span>Alex John Buckthal</span><sup>3</sup>,</span>
+            <span class="author-block">
+              <span>Ryan Anthony O'Connor</span><sup>3</sup>,</span>
+            <span class="author-block">
+              <span>Isak Worre Foged</span><sup>3</sup>, </span>
+            <span class="author-block">
+              <span>Dim P. Papadopoulos</span><sup>1,2</sup> </span>
+            <!-- <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>, </span>
+            <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup> </span> -->
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Technical University of Denmark,</span>
+            <span class="author-block"><sup>2</sup>Pioneer Centre for AI,</span>
+            <span class="author-block"><sup>3</sup>The Royal Danish Academy</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2606.23402"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2606.23402"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <!-- <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/framework.svg" alt="Teaser Framework" style="width: 100%; height: auto; border-radius: 10px;">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Overview of three thermal prediction frameworks.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Wood materials exhibit complex, spatially varying thermal properties that challenge traditional architectural assumptions of material homogeneity. 
+            Although data-driven approaches can directly map wood RGB images to their corresponding thermal responses, they operate as uninterpretable black boxes 
+            that prioritize statistical correlation and may absorb experimental noise rather than thermodynamic plausibility. To address these limitations, we present 
+            physics-informed deep learning frameworks that integrate partial differential equations (PDEs) to predict pixel-level thermal responses of spatially 
+            heterogeneous wood materials using wood RGB images and testbed temperature maps. Specifically, we investigate two distinct approaches to enforcing 
+            a normalized 2D steady-state heat transfer equation derived from the general heat transfer equation: 
+            Physics-Informed Convolutional Neural Networks (PICNNs), which embed physics as a soft penalty term 
+            in the loss function, and Physics-Integrated Convolutional Neural Networks (PInteCNNs), 
+            which hard-code an analytical approximator-predictor-corrector solver directly into convolutional neural networks. 
+            To validate our proposed approaches, we collect three real-world multimodal datasets of 
+            Poplar, Grandis Cross-Cut (Grandis-CC), and Grandis Radial-Cut (Grandis-RC) wood samples.
+            We further demonstrate that embedding physical inductive biases successfully balances 
+            predictive accuracy,  physical interpretability, and intra-species diversity, outperforming 
+            data-driven approaches in handling complex wood material heterogeneity and enabling 
+            the extraction of interpretable physical parameters.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <!-- Dataset -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Dataset</h2>
+
+        <!-- setup -->
+        <h3 class="title is-4">Setsup</h3>
+        <div class="content has-text-justified">
+          <p>
+            The following experimental setup is used to collect thermal datasets, including Poplar, Grandis-CC, and Grandis-RC.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/setup.svg" alt="Experimental Setup" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        <!--/ setup -->
+
+        <!-- dataset -->
+        <h3 class="title is-4">Wood Samples</h3>
+        <div class="content has-text-justified">
+          <p>
+            Selected data samples in the Poplar (top three rows), Grandis-CC (middle three rows), and Grandis-RC (bottom three rows) datasets. 
+    For each category, the three rows display the wood RGB images, the corresponding thermal responses, and the testbed temperature maps.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/data_example_w_bed.svg" alt="Wood Samples" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        <!--/ dataset -->
+
+      </div>
+    </div>
+    <!--/ Dataset -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Prediction</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            The following figure demonstrates the thermal prediction results using our best-performing Physics-Informed Convolutional Neural Network (PICNN) model.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/best_PICNN.svg" alt="PICNN Prediction Results" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{xie2026physicsinformedmodelingwoodthermal,
+      title={Physics-Informed Modeling for Wood Thermal Analysis and Prediction}, 
+      author={Jingren Xie and Alex John Buckthal and Ryan Anthony O'Connor and Isak Worre Foged and Dim P. Papadopoulos},
+      year={2026},
+      eprint={2606.23402},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2606.23402}, 
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <!-- <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
