@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Seeing the Heat">
+  <meta name="keywords" content="Thermal Simulation, Machine Learning, Generative Modeling">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seeing the Heat: Synthesizing High-Resolution Wood Thermal Responses from Optical Imagery</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script 
+    async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL">
+  </script>
+  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script src="./static/js/bibliography.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Synthesizing High-Resolution Wood Thermal Responses from Optical Imagery</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span>Jingren Xie</span><sup>1,2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Technical University of Denmark,</span>
+            <span class="author-block"><sup>2</sup>Pioneer Centre for AI</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./static/pdf/WoodInsight.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>PDF</span>
+                </a>
+              </span>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/simulation.svg" alt="Teaser Framework" style="width: 100%; height: auto; border-radius: 10px;">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">The Pipeline for Synthesizing High-Resolution Wood Thermal Responses from Optical Imagery.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The thermal behavior of wood is a critical factor in advanced material assembly.
+            However, pixel-level thermal analysis remains fundamentally constrained by the low resolution and noise inherent to infrared thermography.
+            To address this, we introduce an end-to-end computational framework that synthesizes high-resolution thermal responses directly from standard RGB images.
+            We first establish a core physical linkage: because spatial color variation in natural wood is driven by cellular anatomy, optical intensity serves as a reliable geometric proxy for the localized solid volume fraction.
+            Through leveraging this theoretical insight, we develop an automated finite-element-method data engine that maps pixel-level optical intensity to a 3D thermodynamic voxel grid, generating high-fidelity synthetic thermal responses. 
+            We find that 1) when the thermal conductivity along the thickness direction is uniform or linear, wood RGB images and their corresponding thermal responses exhibit extreme morphological similarities, and the lateral diffusion acts as a low-pass filter that smooths out high-frequency details; 2) when the thermal conductivity along the thickness direction is random, such morphological similarities are destroyed, and wood's 3D structure dominantly governs its thermal response.
+            We further utilize these synthetic thermal responses to supervise a neural surrogate model built upon the DINOv3 foundation model. 
+            Our results demonstrate that the neural surrogate model successfully internalizes the governing thermodynamic laws, thereby bypassing computationally expensive simulations and enabling high-resolution thermal inference. 
+            This methodology effectively bridges the semantic and thermodynamic domains, unlocking systematic, pixel-level analysis of fine-grained wood thermal performance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Introduction</h2>
+        <p>
+          The thermal behavior of wood plays a crucial role in advancing wood material assembly strategies <cite data-ref="menges2015performative"></cite>,
+          <cite data-ref="tibbits2016self"></cite>, <cite data-ref="cheng2020multifunctional"></cite>, <cite data-ref="fragkia2020methods"></cite>,
+          <cite data-ref="fragkia2020wood"></cite>, <cite data-ref="fragkia2023thermodynamic"></cite>. While these strategies hold significant potential, they currently remain largely conceptual. 
+          Furthermore, pixel-level analysis of wood thermal behavior remains fundamentally unexplored. 
+          Although experimental setups utilizing infrared cameras can readily capture low-resolution, noisy thermal data,
+          it is exceptionally challenging to obtain high-fidelity, high-resolution thermal measurements. 
+          The absence of such high-quality data impedes a systematic, fine-grained analysis of wood thermal responses, and foundational knowledge on wood thermal behavior remains lacking.
+        </p>
+        <p>
+          This study is motivated by the empirical observation that, visually, wood RGB images and their corresponding thermal responses exhibit discernible morphological similarities and an inverse relationship between optical intensity and temperature difference <cite data-ref="xie2026physics"></cite>. 
+          This morphological alignment suggests a fundamental physical linkage between a wood sample's optical intensity and its localized thermodynamic behavior. 
+          Because spatial color variation in uncoated, natural wood is primarily governed by cellular anatomy <cite data-ref="marschner2005measuring"></cite>, optical intensity can serve as a geometric proxy for the localized solid volume fraction.
+        </p>
+        <p>
+          Translating these complex, high-frequency optical patterns into continuous thermal responses, however, presents a significant methodological challenge. 
+          A seemingly intuitive solution is to use data-driven computer vision models (such as Generative Adversarial Networks <cite data-ref="goodfellow2014generative"></cite>, Variational Autoencoders <cite data-ref="kingma2013auto"></cite>, diffusion models <cite data-ref="ho2020denoising"></cite>, <cite data-ref="song2020score"></cite>, and flow models <cite data-ref="lipman2022flow"></cite>, <cite data-ref="liu2022flow"></cite>) to synthesize high-resolution thermal responses.
+          However, these models are physically agnostic and fully supervised.
+          To bridge this gap, this paper proposes a novel, end-to-end computational framework to synthesize high-resolution thermal responses directly from standard RGB images.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <!-- Dataset -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Simulation Results</h2>
+
+        <!-- setup -->
+        <h3 class="title is-4">Different Thermal Diffusion</h3>
+        <div class="content has-text-justified">
+          <p>
+            Parametric ablation study of thermal diffusion. 
+            The top and middle rows display the original optical RGB image and the corresponding simulated steady-state surface temperature maps under various diffusion coefficients (&alpha;, &beta;).
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/alpha_beta_visualization.svg" alt="Experimental Setup" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        <!--/ setup -->
+
+        <!-- dataset -->
+        <h3 class="title is-4">Different Thermal Conductivity Distribution along the Thickness Direction</h3>
+        <div class="content has-text-justified">
+          <p>
+            Wood internal heat transfer profiles mapping the temperature gradients from the bottom thermal boundary (50&deg;C) to the top surface.
+            The uniform and linear k<sub>z</sub> distributions (left and center columns) facilitate relatively continuous vertical heat conduction. 
+            In contrast, the randomly stratified distributions (right column) disrupt direct pathways, introducing tortuous thermal flow and non-linear temperature drops across the wood thickness.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/Thermal_Pipeline_3D.svg" alt="Wood Samples" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        <!--/ dataset -->
+
+      </div>
+    </div>
+    <!--/ Dataset -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <!-- Dataset -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Potential Applications</h2>
+
+        <!-- setup -->
+        <h3 class="title is-4">Neural Surrogate Model</h3>
+        <div class="content has-text-justified">
+          <p>
+            We leverage this synthesized paired dataset to supervise a DINOv3-based encoder-decoder architecture, enabling direct prediction of the thermal responses from the RGB images.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/prediction.svg" alt="Experimental Setup" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/test_sample_0150.svg" alt="Experimental Setup" style="width: 100%; max-width: 800px; height: auto; border-radius: 10px;">
+        </div>
+        <br/>
+        <!--/ setup -->
+
+      </div>
+    </div>
+    <!--/ Dataset -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+    <!-- Dataset -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">References</h2>
+        <div id="bibliography"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre>
+      <code>@misc{xie2026synthesizing,
+      title={Synthesizing High-Resolution Wood Thermal Responses from Optical Imagery}, 
+      author={Jingren Xie},
+      year={2026},
+      url={},
+      }
+      </code>
+    </pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
